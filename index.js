@@ -2,8 +2,9 @@ const express = require("express");
 const app = express();
 const cors = require("cors");
 
-app.use(express.json());
 app.use(cors());
+app.use(express.static("dist"));
+app.use(express.json());
 
 let notes = [
   {
@@ -31,6 +32,8 @@ app.get("/", (request, response) => {
 app.get("/api/notes/:id", (request, response) => {
   const id = request.params.id;
   const note = notes.find((note) => note.id === id);
+
+  console.log("server note: ", note);
 
   if (note) {
     response.json(note);
